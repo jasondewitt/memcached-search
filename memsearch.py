@@ -10,7 +10,8 @@ _stat_regex = re.compile(r"STAT (.*) (.*)\r")
 @click.group()
 def cli():
     """Debug your memcached server by searching for cache keys"""
-    pass
+
+    #pass
 
 @cli.command()
 def items():
@@ -54,6 +55,4 @@ def slabIds(items):
 def initMemcachedClient():
     return Client(('localhost', 11211))
 
-if __name__ == "__main__":
-    client = initMemcachedClient()
-    cli()
+client = initMemcachedClient()
