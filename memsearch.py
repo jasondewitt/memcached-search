@@ -30,11 +30,12 @@ def items(ctx):
     config = buildConfig(ctx.obj["HOST"], ctx.obj["PORT"])
     clientList = getClientList(config)
     for client in clientList:
-        click.echo(f"FROM SERVER {client.server}")
         for id in slabIds(client.stats("items")):
-            for key in client.stats('cachedump', id, '0').keys():
+            k = client.stats('cachedump', id, '0').keys()
+            for key in k:
                 click.echo(key)
-        print()
+            click.echo(f"*********** SERVER {client.server} contains {len(k)} keys")
+            print()
 
 
 @cli.command()
@@ -45,11 +46,13 @@ def find(ctx, pattern):
     config = buildConfig(ctx.obj["HOST"], ctx.obj["PORT"])
     clientList = getClientList(config)
     for client in clientList:
-        click.echo(f"FROM SERVER {client.server}")
+        srvFound = 0
         for id in slabIds(client.stats("items")):
             for key in client.stats('cachedump', id, '0').keys():
                 if re.search(pattern, key.decode('utf-8')):
                     click.echo(key)
+                    srvFound += 1
+        click.echo(f"********** SERVER {client.server} contained {srvFound} matching results")
         print()
 
 
@@ -77,7 +80,6 @@ def slabIds(items):
             pass
     if len(ids) == 0:
         click.echo("No slabs found, does this memcached server contain data?")
-        sys.exit(1)
     return ids
 
 
