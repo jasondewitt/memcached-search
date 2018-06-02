@@ -7,6 +7,8 @@ setup(
     install_requires=[
         'Click',
         'pymemcache',
+        'future',
+        'future-fstrings'
     ],
     entry_points='''
         [console_scripts]

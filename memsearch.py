@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: future_fstrings -*-
+from __future__ import print_function
 import click
 import re
 import json
