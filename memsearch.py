@@ -7,9 +7,7 @@ import json
 import sys
 import os
 
-_key_regex = re.compile(r'ITEM (.*) \[(.*); (.*)\]')
 _slab_regex = re.compile(r'items:(.*):number')
-_stat_regex = re.compile(r"STAT (.*) (.*)\r")
 
 @click.group()
 @click.option("--host", help="memcached server ip", default="localhost")
